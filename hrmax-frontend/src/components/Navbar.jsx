@@ -56,33 +56,6 @@ const Navbar = () => {
 
                     <div className={`w-full lg:flex lg:items-center lg:w-auto ${isOpen ? '' : 'hidden'}`}>
                         <ul className="lg:flex lg:justify-between">
-
-                            {/* {
-                                user.Role !== 'User' &&
-                                <li className='block lg:inline-block lg:mt-0 text-white hover:text-gray-200 px-4 py-2'>
-                                    <NavLink
-                                        exact
-                                        to="/attendance"
-                                        className={({ isActive }) => (isActive ? 'text-gray-500' : 'text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium')}
-                                    >
-                                        Attendance
-                                    </NavLink>
-                                </li>
-                            } */}
-
-                            {/* {
-                                user.Role === 'User' &&
-                                <li className='block lg:inline-block lg:mt-0 text-white hover:text-gray-200 px-4 py-2'>
-                                    <NavLink
-                                        exact
-                                        to="/leaverequestlist"
-                                        className={({ isActive }) => (isActive ? 'text-gray-500' : 'text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 font-medium')}
-                                    >
-                                        Leave
-                                    </NavLink>
-                                </li>
-                            } */}
-
                             {
                                 user.Role !== 'User' &&
                                 <li className='block lg:inline-block lg:mt-0 text-white hover:text-gray-200 px-4 py-2'>
@@ -108,7 +81,7 @@ const Navbar = () => {
                                 </li>
                             }
 
-                           
+
                             <li className='relative block lg:inline-block lg:mt-0  text-white hover:text-gray-200 px-4 py-2'>
                                 <button className='text-white focus:outline-none' onClick={toggleDropdown}>
                                     Time Management
@@ -116,13 +89,17 @@ const Navbar = () => {
 
                                 {drowdownOpen && (
                                     <div className='absolute right-0 mt-2 w-48 bg-slate-400 rounded-md shadow-lg py-2 z-20' ref={dropdownRef}>
-                                        <NavLink
-                                            exact
-                                            to="/attendance"
-                                            className="block px-4 py-2 text-white hover:bg-gray-700"
-                                        >
-                                            Time and Attendance
-                                        </NavLink>
+                                        {
+                                            user.Role !== 'User' &&
+                                            <NavLink
+                                                exact
+                                                to="/attendance"
+                                                className="block px-4 py-2 text-white hover:bg-gray-700"
+                                            >
+                                                Time and Attendance
+                                            </NavLink>
+                                        }
+
                                         <NavLink
                                             exact
                                             to="/leaverequestlist"
@@ -130,13 +107,16 @@ const Navbar = () => {
                                         >
                                             Leave Management
                                         </NavLink>
-                                        <NavLink
-                                            exact
-                                            to="/scheduling"
-                                            className="block px-4 py-2 text-white hover:bg-gray-700"
-                                        >
-                                            Scheduling
-                                        </NavLink>
+                                        {
+                                            user.Role !== 'User' &&
+                                            <NavLink
+                                                exact
+                                                to="/scheduling"
+                                                className="block px-4 py-2 text-white hover:bg-gray-700"
+                                            >
+                                                Scheduling
+                                            </NavLink>
+                                        }
                                     </div>
                                 )}
                             </li>

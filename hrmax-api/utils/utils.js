@@ -25,6 +25,10 @@ export const generateNextEmpNo = async () => {
 
     let newEmpCode = '0601'
 
+    if (lastEmp == null) {
+        return newEmpCode;
+    }
+
     if (lastEmp.Emp_No !== null && lastEmp.Emp_No !== undefined) {
         const lastCode = parseInt(lastEmp.Emp_No, 10)
         newEmpCode = (lastCode + 1).toString().padStart(4, '0')

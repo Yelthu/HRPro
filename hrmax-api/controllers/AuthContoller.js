@@ -2,6 +2,7 @@ import User from "../models/User.js"
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import createError from '../utils/error.js'
+import { generateNextEmpNo } from "../utils/utils.js";
 
 export const register = async (req, res, next) => {
     try {
@@ -9,12 +10,21 @@ export const register = async (req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.Password, salt);
 
+        const empNo = await generateNextEmpNo();
+
+        // For first admin user registration only
+        const isAdmin = true;
+        const role = 'Admin';
+
         const newUser = new User({
-            Emp_No: req.body.Emp_No,
+            // Emp_No: req.body.Emp_No,
+            Emp_No: empNo,
             Name: req.body.Name,
             Email: req.body.Email,
             Password: hash,
-            IsAdmin: req.body.IsAdmin
+            //IsAdmin: req.body.IsAdmin
+            IsAdmin: isAdmin,
+            Role: role
         })
         await newUser.save()
         res.status(200).send('User has been created')
@@ -25,8 +35,8 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
     try {
+        const user = await User.findOne({ Name: new RegExp(`^${req.body.Name}$`, 'i') })
 
-        const user = await User.findOne({ Name: req.body.Name })
         if (!user) return next(createError(404, 'User not found!'))
 
         const isCorrectPassword = await bcrypt.compare(req.body.password, user.Password)

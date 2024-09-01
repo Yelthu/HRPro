@@ -23,7 +23,7 @@ const connect = async () => {
 }
 
 app.get('/', (req, res) => {
-    res.send('hello! first request')
+    res.send('hello! api server is healthy!')
 })
 
 mongoose.connection.on("disconnected", () => {

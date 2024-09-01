@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+//import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Leave from './pages/Leave'
 import Attendance from './pages/Attendance'
@@ -14,7 +14,7 @@ import Hoco from './components/Hoco';
 import Service from './components/Service';
 import Telecom from './components/Telecom';
 import ApprovalWorkflow from './components/ApprovalWorkflow';
-import { AuthContext } from './context/AuthContext';
+//import { AuthContext } from './context/AuthContext';
 import Logout from './pages/Logout';
 import UserManagement from './components/UserManagement';
 import Scheduling from './pages/Scheduling';
@@ -22,14 +22,14 @@ import Home from './pages/Home';
 
 function App() {
 
-  const ProtectedRoutes = ({ children }) => {
-    const { user } = useContext(AuthContext)
+  // const ProtectedRoutes = ({ children }) => {
+  //   const { user } = useContext(AuthContext)
 
-    if (!user.IsAdmin) {
-      return <Navigate to='/' />
-    }
-    return children
-  }
+  //   if (!user.IsAdmin) {
+  //     return <Navigate to='/' />
+  //   }
+  //   return children
+  // }
 
   return (
     <Router>
@@ -44,15 +44,15 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path='/Home' element={<Home />} />
 
-          <Route path="/attendance"
+          {/* <Route path="/attendance"
             element={
               <ProtectedRoutes>
                 <Attendance />
               </ProtectedRoutes>
             }
-          />
+          /> */}
 
-
+          <Route path="/attendance" element={<Attendance />} />
           <Route path="/leave" element={<Leave />} />
           <Route path="/appraisal" element={<Appraisal />} />
 
