@@ -14,13 +14,13 @@ RUN yarn build
 CMD [ "yarn", "start" ]
 
 # Production Stage
-FROM  nginx:alpine as production
+FROM  nginx:1.27.1-alpine as production
 
 #WORKDIR /app
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=development /app/build /usr/share/nginx/html
 
-RUN yarn install --frozen-lockfile
+#RUN yarn install --frozen-lockfile
 
 EXPOSE 80
 
