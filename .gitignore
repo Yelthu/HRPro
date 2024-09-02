@@ -24,7 +24,7 @@ bower_components/
 # Attached files
 hrmax-api/public/uploads
 hrmax-api/public/routes/uploads
-hrmax-frontend/src/asset
+#hrmax-frontend/src/asset
 
 # Environment variables
 hrmax-api/.env
