@@ -30,6 +30,7 @@ services:
       context: ./hrmax-frontend
       target: development
     restart: unless-stopped
+    env_file: ./hrmax-frontend/.env
     volumes:
       - ./hrmax-frontend:/app
       - /app/node_modules

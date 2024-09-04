@@ -12,7 +12,7 @@ const FileUpload = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const respond = await axios.get('http://localhost:8800/api/attendance')
+                const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/attendance`)
                 setData(respond.data)
             } catch (error) {
                 console.log('Error is ', error)
@@ -44,7 +44,7 @@ const FileUpload = () => {
         e.preventDefault()
 
         try {
-            const response = await axios.get('http://localhost:8800/api/attendance/search', {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/attendance/search`, {
                 params: { q: formData }
             })
 
@@ -78,7 +78,7 @@ const FileUpload = () => {
         formData.append('file', file)
 
         try {
-            const response = await axios.post('http://localhost:8800/api/attendance/upload', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/attendance/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

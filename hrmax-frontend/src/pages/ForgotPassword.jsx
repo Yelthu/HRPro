@@ -38,7 +38,7 @@ export default function ForgotPassword() {
         e.preventDefault()
 
         try {
-            const response = await axios.put('http://localhost:8800/api/auth/resetPassword', formData)
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/auth/resetPassword`, formData);
             console.log('Response is ', response)
 
             showNotification(response.data.message, 'green')

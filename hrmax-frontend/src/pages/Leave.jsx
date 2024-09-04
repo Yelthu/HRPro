@@ -30,10 +30,12 @@ const Leave = ({ onSubmit }) => {
 
   const [notification, setNotification] = useState({ message: '', color: '' })
 
+  //process.env.REACT_APP_API_URL http://localhost:8800/api/leave/leave-balance
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const respond = await axios.get('http://localhost:8800/api/leave/leave-balance', {
+        const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave/leave-balance`, {
           params: {
             name: user.Name
           }
@@ -49,7 +51,7 @@ const Leave = ({ onSubmit }) => {
   useEffect(() => {
     const fetchAllocatedLeaveBalance = async () => {
       try {
-        const respond = await axios.get('http://localhost:8800/api/leave/allocated-balance', {
+        const respond = await axios.get(`${process.env.REACT_APP_API_UR}/api/leave/allocated-balance`, {
           params: {
             emptype: user.Emp_Type,
             yearsOfService: user.YearsOfService
@@ -101,14 +103,10 @@ const Leave = ({ onSubmit }) => {
       formDataToSend.append('numofDays', numofDays)
 
       try {
-        const response = await axios.post('http://localhost:8800/api/leave/request', formDataToSend, {
+        const response = await axios.post(`${process.env.REACT_APP_API_UR}/api/leave/request`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
-          // const response = await axios.post('http://localhost:8800', formDataToSend, {
-          //   headers: {
-          //     'Content-Type': 'multipart/form-data'
-          //   }
         })
 
         showNotification(response.data.message, 'green')
@@ -224,7 +222,7 @@ const Leave = ({ onSubmit }) => {
 
   const validateCasual = async () => {
     try {
-      const response = await axios.get('http://localhost:8800/api/leave/casual', {
+      const response = await axios.get(`${process.env.REACT_APP_API_UR}/api/leave/casual`, {
         params: { q: formData }
       })
 

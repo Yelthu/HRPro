@@ -22,7 +22,7 @@ const UserManagement = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8800/api/user/search?q=${query}`);
+                const response = await axios.get(`${process.env.REACT_APP_API_UR}/api/user/search?q=${query}`);
 
                 setUsers(response.data);
 
@@ -36,7 +36,7 @@ const UserManagement = () => {
         }, 300)
 
         return () => clearTimeout(delayDebounce);
-        
+
     }, [query])
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const UserManagement = () => {
         formData.append('file', file)
 
         try {
-            const response = await axios.post('http://localhost:8800/api/user/upload-user-list', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/upload-user-list`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -120,7 +120,7 @@ const UserManagement = () => {
 
     const confirmDelete = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8800/api/user/${selectedRequestId}`, {
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/user/${selectedRequestId}`, {
                 id: selectedRequestId
             })
             if (response.status === 200) {
@@ -222,7 +222,7 @@ const UserManagement = () => {
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <div className="flex items-center">
                                                 {user.ProfilePicture ? (
-                                                    <img src={`http://localhost:8800${user.ProfilePicture}`} alt={user.Name} className="w-10 h-10 rounded-full" />
+                                                    <img src={`${process.env.REACT_APP_API_URL}${user.ProfilePicture}`} alt={user.Name} className="w-10 h-10 rounded-full" />
                                                 ) : (
                                                     <span className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500">N/A</span>
                                                 )}

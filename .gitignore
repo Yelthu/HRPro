@@ -28,6 +28,7 @@ hrmax-api/public/routes/uploads
 
 # Environment variables
 hrmax-api/.env
+hrmax-frontend/.env
 
 # OS generated files
 .DS_Store

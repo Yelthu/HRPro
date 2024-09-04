@@ -13,8 +13,8 @@ export const register = async (req, res, next) => {
         const empNo = await generateNextEmpNo();
 
         // For first admin user registration only
-        const isAdmin = true;
-        const role = 'Admin';
+       // const isAdmin = true;
+       // const role = 'Admin';
 
         const newUser = new User({
             // Emp_No: req.body.Emp_No,
@@ -22,9 +22,9 @@ export const register = async (req, res, next) => {
             Name: req.body.Name,
             Email: req.body.Email,
             Password: hash,
-            //IsAdmin: req.body.IsAdmin
-            IsAdmin: isAdmin,
-            Role: role
+            IsAdmin: req.body.IsAdmin
+            // IsAdmin: isAdmin,
+            // Role: role
         })
         await newUser.save()
         res.status(200).send('User has been created')

@@ -40,8 +40,8 @@ export default function Login() {
         e.preventDefault()
 
         try {
-            const response = await axios.post('http://localhost:8800/api/user/register', formData)
-            console.log('Response is ', response)
+            const response =  await axios.post(`${process.env.REACT_APP_API_URL}/api/user/register`, formData);
+            console.log('Response is ', response);
 
             navigate('/Signin')
         } catch (error) {

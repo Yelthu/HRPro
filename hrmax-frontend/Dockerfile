@@ -3,6 +3,8 @@ FROM  node:16.20.2-alpine as development
 
 WORKDIR /app
 
+#ENV REACT_APP_API_URL=http://api:8800
+
 COPY package.json yarn.lock ./
 
 RUN yarn install --frozen-lockfile

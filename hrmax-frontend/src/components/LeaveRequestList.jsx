@@ -26,7 +26,7 @@ const LeaveRequestList = () => {
 
     const confirmReject = async () => {
         try {
-            const response = await axios.post('http://localhost:8800/api/leave/reject', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/leave/reject`, {
                 id: selectedRequestId, reason: rejectReason
             })
             if (response.status === 200) {
@@ -50,7 +50,7 @@ const LeaveRequestList = () => {
         const fetchData = async () => {
             try {
                 if (user.role === 'User') {
-                    const respond = await axios.get('http://localhost:8800/api/leave/leave-list-emp', {
+                    const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave/leave-list-emp`, {
                         params: {
                             name: user.Name
                         }
@@ -58,7 +58,7 @@ const LeaveRequestList = () => {
                     setLeaveList(respond.data)
                 }
                 else if (user.role === 'HR') {
-                    const respond = await axios.get('http://localhost:8800/api/leave', {
+                    const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave`, {
                         params: {
                             state: 'HR Approval'
                         }
@@ -66,7 +66,7 @@ const LeaveRequestList = () => {
                     setLeaveList(respond.data)
                 }
                 else if (user.role === 'Admin') {
-                    const respond = await axios.get('http://localhost:8800/api/leave', {
+                    const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave`, {
                         params: {
                             state: 'Management Approval'
                         }
@@ -83,7 +83,7 @@ const LeaveRequestList = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await axios.post('http://localhost:8800/api/leave/approve', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/leave/approve`, {
                 id
             })
             if (response.status === 200) {
