@@ -3,6 +3,8 @@ name: hrmax
 services:
   mongo:
     image: mongo:7.0.2
+    ports:
+      - 27017:27017
     volumes:
       - mongo_data:/data/db
     networks:
@@ -13,6 +15,9 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file: ./hrmax-api/.env
+    volumes:
+      - ./hrmax-api:/app
+      - /app/node_modules
     networks:
       - hr-network
     ports:
@@ -23,15 +28,16 @@ services:
   frontend:
     build:
       context: ./hrmax-frontend
-      target: production
+      target: development
     restart: unless-stopped
+    env_file: ./hrmax-frontend/.env
     volumes:
       - ./hrmax-frontend:/app
       - /app/node_modules
     networks:
       - hr-network
     ports:
-      - 80:80
+      - 3000:3000
     depends_on:
       - api
 

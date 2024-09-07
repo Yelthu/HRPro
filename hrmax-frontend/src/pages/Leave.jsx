@@ -51,7 +51,7 @@ const Leave = ({ onSubmit }) => {
   useEffect(() => {
     const fetchAllocatedLeaveBalance = async () => {
       try {
-        const respond = await axios.get(`${process.env.REACT_APP_API_UR}/api/leave/allocated-balance`, {
+        const respond = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave/allocated-balance`, {
           params: {
             emptype: user.Emp_Type,
             yearsOfService: user.YearsOfService
@@ -103,7 +103,7 @@ const Leave = ({ onSubmit }) => {
       formDataToSend.append('numofDays', numofDays)
 
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_UR}/api/leave/request`, formDataToSend, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/leave/request`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -222,7 +222,7 @@ const Leave = ({ onSubmit }) => {
 
   const validateCasual = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_UR}/api/leave/casual`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/leave/casual`, {
         params: { q: formData }
       })
 

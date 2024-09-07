@@ -1,28 +1,32 @@
-# Development Stage
+# Development stage
 FROM  node:16.20.2-alpine as development
 
 WORKDIR /app
 
-#ENV REACT_APP_API_URL=http://api:8800
-
 COPY package.json yarn.lock ./
-
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 COPY . .
 
+EXPOSE 3000
+
+CMD ["yarn", "start"]
+
+# Production stage (Build stage)
+FROM node:16.20.2-alpine as build
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --production
+
+COPY . .
 RUN yarn build
 
-CMD [ "yarn", "start" ]
-
 # Production Stage
-FROM  nginx:1.27.1-alpine as production
+FROM nginx:alpine as production
 
-#WORKDIR /app
-
-COPY --from=development /app/build /usr/share/nginx/html
-
-#RUN yarn install --frozen-lockfile
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 

@@ -22,7 +22,7 @@ const UserManagement = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_UR}/api/user/search?q=${query}`);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/search?q=${query}`);
 
                 setUsers(response.data);
 
