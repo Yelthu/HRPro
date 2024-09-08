@@ -14,7 +14,7 @@ RUN yarn build
 CMD [ "yarn", "start" ]
 
 # Production Stage
-FROM  nginx:1.27.1-alpine as production
+FROM  nginx:1.27.1-alpine-slim as production
 
 #COPY --from=development /app/build /usr/share/nginx/html
 COPY --from=build /app/build /usr/share/nginx/html

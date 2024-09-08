@@ -1,0 +1,64 @@
+name: hrmax
+
+services:
+  mongo:
+    image: mongo:7.0.2
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hr-network
+  api:
+    build:
+      context: ./hrmax-api
+      dockerfile: Dockerfile
+      target: production
+    restart: unless-stopped
+    env_file: ./hrmax-api/.env
+    volumes:
+      - ./hrmax-api:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    networks:
+      - hr-network
+    ports:
+      - 8800:8800
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./hrmax-frontend
+      dockerfile: Dockerfile
+      target: production
+    restart: unless-stopped
+    env_file: ./hrmax-frontend/.env
+    volumes:
+      - ./hrmax-frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    networks:
+      - hr-network
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - frontend
+
+volumes:
+  mongo_data:
+networks:
+  hr-network:
+    driver: bridge
