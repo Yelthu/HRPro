@@ -11,7 +11,7 @@ COPY . .
 
 RUN yarn build
 
-CMD [ "yarn", "start" ]
+#CMD [ "yarn", "start" ]
 
 # Production Stage
 FROM  nginx:1.27.1-alpine-slim as production
