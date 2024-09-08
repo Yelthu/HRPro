@@ -1,31 +1,22 @@
-# Development stage
+# Development Stage
 FROM  node:16.20.2-alpine as development
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN yarn install
+
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 3000
-
-CMD ["yarn", "start"]
-
-# Production stage (Build stage)
-FROM node:16.20.2-alpine as build
-
-WORKDIR /app
-
-COPY package.json yarn.lock ./
-RUN yarn install --production
-
-COPY . .
 RUN yarn build
 
-# Production Stage
-FROM nginx:alpine as production
+CMD [ "yarn", "start" ]
 
+# Production Stage
+FROM  nginx:1.27.1-alpine as production
+
+#COPY --from=development /app/build /usr/share/nginx/html
 COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
