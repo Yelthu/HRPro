@@ -38,8 +38,6 @@ services:
     volumes:
       - ./hrmax-frontend:/app
       - /app/node_modules
-    environment:
-      - NODE_ENV=production
     networks:
       - hr-network
     ports:
